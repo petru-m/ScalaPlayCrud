@@ -5,7 +5,7 @@ package model
  */
 case class User
 (
-  userId:Option[Long] = None,
+  recid:Option[Long] = None,
   first_name:String,
   last_name:String,
   email:String

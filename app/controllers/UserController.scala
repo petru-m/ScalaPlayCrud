@@ -20,6 +20,7 @@ class UserController  extends Controller{
 
   def getUsers=Action.async{implicit request=>
     dao.all().map{user=>
+      Logger.debug(""+Json.toJson(Map("total" -> Json.toJson(user.length), "records" ->Json.toJson(user))))
       Ok(Json.toJson(Map("total" -> Json.toJson(user.length), "records" ->Json.toJson(user))))}
   }
   def saveUser = Action.async(parse.json){implicit  request=>

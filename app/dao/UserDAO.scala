@@ -19,18 +19,18 @@ class UserDAO  extends  HasDatabaseConfig[JdbcProfile] {
   private val Users = TableQuery[UserTable]
 
   private class UserTable(tag :Tag) extends Table[User](tag,"user"){
-    def userId = column[Long]("userId", O.PrimaryKey, O.AutoInc)
+    def recid = column[Long]("userId", O.PrimaryKey, O.AutoInc)
     def first_name = column[String]("first_name")
     def last_name = column[String]("last_name")
     def email = column[String]("email")
 
-    def * = (userId.?, first_name, last_name,email) <> (User.tupled, User.unapply _)
+    def * = (recid.?, first_name, last_name,email) <> (User.tupled, User.unapply _)
   }
   def all(): Future[List[User]] = db.run(Users.result).map(_.toList)
 
   def add(user : User):Future[User]=db.run(Users +=user).map(_=>user)
 
-  def findUserById(id:Long):Future[Option[User]]=db.run(Users.filter(_.userId===id).result.headOption)
+  def findUserById(id:Long):Future[Option[User]]=db.run(Users.filter(_.recid===id).result.headOption)
 
-  def deleteUserById(id:Long):Future[Int]=db.run(Users.filter(_.userId===id).delete)
+  def deleteUserById(id:Long):Future[Int]=db.run(Users.filter(_.recid===id).delete)
 }
