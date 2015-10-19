@@ -38,4 +38,9 @@ class UserController  extends Controller{
       delete=>Ok(Json.toJson("User deleted"))
     }
   }
+  def updateUser(userID:Int) =  Action.async(parse.json){implicit  request=>
+    request.body.validate[User].map{
+      user=>dao.updateUser(userID,user).map(result=>Ok(Json.toJson("User updated")))
+    }.getOrElse(Future.successful(BadRequest("invalid json")))
+  }
 }

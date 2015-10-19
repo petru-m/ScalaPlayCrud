@@ -24,21 +24,49 @@ $(function () {
             footer:true,
             header:true,
             toolbar:true,
-            toolbarAdd: true
+            toolbarAdd: true,
+            toolbarDelete: true,
+            toolbarSave: true
 
         },
         columns: [
-            { field: 'recid', caption: 'ID', size: '50px', sortable: true, resizable: true },
+            { field: 'recid', caption: 'ID', size: '50px', sortable: true, resizable: true, hidden: true },
             { field: 'first_name', caption: 'First Name', size: '30%', editable: { type: 'text' } },
             { field: 'last_name', caption: 'Last Name', size: '30%' , editable: { type: 'text' }},
             { field: 'email', caption: 'Email', size: '40%' , editable: { type: 'text' } }
         ],
         onAdd: function () {
-           openPopup()
-        }
-    });
+           openPopup();
+        },
+        onSave:function(){
 
+        },
+        onDelete:function() {
+		      w2confirm("Are you sure you want to delete selected record?")
+		       .yes(function(){
+		            deleteData();
+		       })
+               .no(function(){
+                    //console.log("no")
+               })
+    }
+
+    });
 });
+function deleteData(){
+    var recid = w2ui.grid.getSelection();
+    if (recid > 0) {
+    $.ajax({
+    url: "/user/" + recid,
+    type: "DELETE",
+    async: true
+        }).done(function (e) {
+    w2ui.grid.remove(recid);
+    w2ui.grid.reload();
+    });
+   }
+}
+
 function openPopup () {
     if (!w2ui.foo) {
         $().w2form({
@@ -107,11 +135,7 @@ function openPopup () {
                 // specifying an onOpen handler instead is equivalent to specifying an onBeforeOpen handler, which would make this code execute too early and hence not deliver.
                 $('#w2ui-popup #form').w2render('foo');
             }
-        },
-       /* onSave:function(event){
-           $(w2ui.foo.box.close());
-        }*/
-
+        }
     });
 
 }

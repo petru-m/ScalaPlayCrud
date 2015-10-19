@@ -33,4 +33,6 @@ class UserDAO  extends  HasDatabaseConfig[JdbcProfile] {
   def findUserById(id:Long):Future[Option[User]]=db.run(Users.filter(_.recid===id).result.headOption)
 
   def deleteUserById(id:Long):Future[Int]=db.run(Users.filter(_.recid===id).delete)
+
+  def updateUser(id :Long,user:User):Future[Int] = db.run(Users.filter(_.recid===id).update(user))
 }
