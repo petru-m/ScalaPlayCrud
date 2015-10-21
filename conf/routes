@@ -8,7 +8,7 @@ GET           /user                @controllers.UserController.getUsers
 POST          /user                @controllers.UserController.saveUser
 GET           /user/:idUser        @controllers.UserController.getUser(idUser : Int)
 DELETE        /user/:idUser        @controllers.UserController.deleteUser(idUser:Int)
-POST          /user/:idUser        @controllers.UserController.updateUser(idUser:Int)
+PUT           /user/:idUser        @controllers.UserController.updateUser(idUser:Int)
 
 
 # Map static resources from the /public folder to the /assets URL path
