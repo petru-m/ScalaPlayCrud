@@ -5,6 +5,7 @@ import _root_.slick.driver.JdbcProfile
 import model.User
 import play.api.Play
 import play.api.db.slick.DatabaseConfigProvider
+import scala.concurrent.duration.Duration
 import scala.concurrent.{Await, Future}
 import play.api.db.slick.HasDatabaseConfig
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -35,4 +36,6 @@ class UserDAO  extends  HasDatabaseConfig[JdbcProfile] {
   def deleteUserById(id:Long):Future[Int]=db.run(Users.filter(_.recid===id).delete)
 
   def updateUser(id :Long,user:User):Future[Int] = db.run(Users.filter(_.recid===id).update(user))
+
+  def isEmpty: Boolean = !Await.result(db.run(Users.exists.result), Duration.Inf)
 }
