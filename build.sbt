@@ -15,11 +15,17 @@ libraryDependencies ++= Seq(
   "com.typesafe.play" %% "play-slick" % "1.0.0",
   "com.typesafe.slick" %% "slick" % "3.0.0",
   "com.h2database" % "h2" % "1.4.187",
-  //"com.typesafe.play" %% "play-slick-evolutions" % "1.0.0",
-  //evolutions,
+  "com.typesafe.play" %% "play-slick-evolutions" % "1.0.0",
+  evolutions,
   play.sbt.Play.autoImport.cache // only when you use default IdContainer
 )
 resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"
+
+fork in Test := true
+
+testOptions in Test += Tests.Argument("sequential")
+
+javaOptions in Test += "-Dconfig.file=conf/application.testing.conf"
 
 // Play provides two styles of routers, one expects its actions to be injected, the
 // other, legacy style, accesses its actions statically.
