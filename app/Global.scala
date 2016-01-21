@@ -16,7 +16,7 @@ object Global  extends GlobalSettings{
       recid = None,
       first_name = "Petru",
       last_name = "Miftode",
-      email = "petru.miftode@assist.ro"
+      email = "petru.miftode@gmail.com"
       ))
     }
   }
