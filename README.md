@@ -1,2 +1,2 @@
 # ScalaPlayCrud
-Scala CRUD + MySQL Database + SLICK + w2ui
+Scala CRUD + SLICK + w2ui
