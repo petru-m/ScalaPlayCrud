@@ -3,13 +3,17 @@
 # ~~~~
 
 # Home page
-GET           /                    @controllers.Application.index
-GET           /user                @controllers.UserController.getUsers
-POST          /user                @controllers.UserController.saveUser
-GET           /user/:idUser        @controllers.UserController.getUser(idUser : Int)
-DELETE        /user/:idUser        @controllers.UserController.deleteUser(idUser:Int)
-PUT           /user/:idUser        @controllers.UserController.updateUser(idUser:Int)
+GET           /                             @controllers.Application.index
+GET           /user                         @controllers.UserController.getUsers
+POST          /user                         @controllers.UserController.saveUser
+GET           /user/:idUser                 @controllers.UserController.getUser(idUser : Int)
+DELETE        /user/:idUser                 @controllers.UserController.deleteUser(idUser:Int)
+PUT           /user/:idUser                 @controllers.UserController.updateUser(idUser:Int)
 
+GET           /address                      @controllers.AddressController.getAddresses
+POST          /address                      @controllers.AddressController.saveAddress
+DELETE        /address/:addressId           @controllers.AddressController.deleteAddress(addressId : Int)
+PUT           /address/:addressId           @controllers.AddressController.updateAddress(addressId : Int)
 
 # Map static resources from the /public folder to the /assets URL path
 GET           /assets/*file        controllers.Assets.at(path="/public", file)

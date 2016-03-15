@@ -1,7 +1,6 @@
 package dao
 
 import _root_.slick.driver.JdbcProfile
-import _root_.slick.driver.JdbcProfile
 import model.User
 import play.api.Play
 import play.api.db.slick.DatabaseConfigProvider
@@ -13,7 +12,8 @@ import scala.concurrent.ExecutionContext.Implicits.global
 /**
  * Created by petru on 08.10.2015.
  */
-class UserDAO  extends  HasDatabaseConfig[JdbcProfile] {
+
+object UserDAO  extends  HasDatabaseConfig[JdbcProfile] {
   protected val dbConfig = DatabaseConfigProvider.get[JdbcProfile](Play.current)
   import driver.api._
 
