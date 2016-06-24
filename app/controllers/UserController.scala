@@ -1,7 +1,7 @@
 package controllers
 
 import dao.UserDAO
-import model.User
+import model.{Address, User}
 import play.api.Logger
 import play.api.libs.json.Json
 import play.api.mvc.{Action, Controller}
@@ -17,6 +17,7 @@ import scala.concurrent.Future
 class UserController  extends Controller{
  
   lazy implicit val userJson = Json.format[User]
+  lazy implicit val addressJson = Json.format[Address]
 
   def getUsers=Action.async{implicit request=>
     UserDAO.all().map{user=>
@@ -31,6 +32,11 @@ class UserController  extends Controller{
   def getUser(userID:Int) = Action.async{
     implicit request =>UserDAO.findUserById(userID).map{
       user=>Ok(Json.toJson(user))
+    }
+  }
+  def getUserAddress(addressId:Int) = Action.async{
+    implicit request => UserDAO.findUserAddress(addressId).map{
+      userAddress=>Ok(Json.toJson(userAddress))
     }
   }
   def deleteUser(userId:Int) = Action.async{

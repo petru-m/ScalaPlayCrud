@@ -3,14 +3,6 @@
 
 # --- !Ups
 
- CREATE TABLE "user" (
-  "userId" int(11) NOT NULL AUTO_INCREMENT,
-  "first_name" varchar(45) DEFAULT NULL,
-  "last_name" varchar(45) DEFAULT NULL,
-  "email" varchar(45) DEFAULT NULL,
-  PRIMARY KEY ("userId")
-);
-
 CREATE TABLE "address"(
   "addressId" int(11) NOT NULL AUTO_INCREMENT,
   "streetName" VARCHAR (45) DEFAULT NULL ,
@@ -19,10 +11,21 @@ CREATE TABLE "address"(
   "city" VARCHAR (45) DEFAULT NULL ,
   "country" VARCHAR (45) DEFAULT NULL ,
   PRIMARY KEY ("addressId")
-
 );
 
-# --- !Downs
+ CREATE TABLE "user" (
+  "userId" int(11) NOT NULL AUTO_INCREMENT,
+  "first_name" varchar(45) DEFAULT NULL,
+  "last_name" varchar(45) DEFAULT NULL,
+  "email" varchar(45) DEFAULT NULL,
+  "addressId" int(11) DEFAULT NULL ,
+  PRIMARY KEY ("userId"),
+  FOREIGN KEY ("addressId") REFERENCES "address"("addressId")
+);
 
-DROP TABLE "user";
+
+
+# --- !Downs`
+
 DROP TABLE "address";
+DROP TABLE "user";

@@ -9,7 +9,10 @@
     </head>
     <body>
 
-        <div id="grid" style="width: 100%; height: 400px;"></div>
+        <div style="position: relative; height: 300px;">
+            <div id="grid" style="position: absolute; left: 0px; width: 69.9%; height: 300px;"></div>
+            <div id="grid2" style="position: absolute; right: 0px; width: 29.9%; height: 300px;display: none"></div>
+        </div>
     </body>
 
     <script type="text/javascript">
@@ -27,8 +30,11 @@ $(function () {
             toolbar:true,
             toolbarAdd: true,
             toolbarSave:true,
-            toolbarDelete: true
-
+            toolbarDelete: true,
+            toolbarEdit:true
+        },
+            buttons: {
+            'edit'     : {type: 'button', id: 'w2ui-edit', caption: w2utils.lang('Assign Address'), icon: 'w2ui-icon-plus'}
         },
         columns: [
             { field: 'recid', caption: 'ID', size: '50px', sortable: true, resizable: true, hidden: true },
@@ -59,9 +65,42 @@ $(function () {
                .no(function(){
                })
 
+        },
+        onSelect:function(event){
+        var grid = document.getElementById("grid2");
+        if (grid.style.display = 'none')
+            grid.style.display = 'block';
+        w2ui['grid2'].clear();
+        var user = this.get(event.recid);
+        $.ajax({
+        url:"/userAddress/"+ user.addressId,
+        type:"GET",
+         async: true
+        }).done(function (e) {
+         w2ui['grid2'].add([
+            { recid: 0, name: 'Street Name', value: e.streetName },
+            { recid: 1, name: 'Number', value: e.number},
+            { recid: 2, name: 'Locality', value: e.locality},
+            { recid: 3, name: 'City', value: e.city},
+            { recid: 4, name: 'Country', value: e.country}
+            ])
+         });
+        },
+        onEdit:function(){
+          console.log(" toDO add address");
         }
-
     });
+     $('#grid2').w2grid({
+        header: 'Address',
+        show: { header: true, columnHeaders: false },
+        name: 'grid2',
+        columns: [
+            { field: 'name', caption: 'Name', size: '100px', style: 'background-color: #efefef; border-bottom: 1px solid white; padding-right: 5px;', attr: "align=right" },
+            { field: 'value', caption: 'Value', size: '100%' }
+        ]
+    });
+
+
 });
 //only for one record
 function deleteData(){

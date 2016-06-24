@@ -17,7 +17,7 @@ object AddressDAO extends HasDatabaseConfig[JdbcProfile]{
 
   private val Addresses = TableQuery[AddressTable]
 
-  private class AddressTable(tag:Tag)extends Table[Address](tag,"address"){
+  class AddressTable(tag:Tag)extends Table[Address](tag,"address"){
     def addressId = column[Long]("addressId", O.PrimaryKey, O.AutoInc)
     def streetName = column[String]("streetName")
     def number = column[Long]("number")

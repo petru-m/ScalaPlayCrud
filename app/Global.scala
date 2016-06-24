@@ -10,14 +10,6 @@ object Global  extends GlobalSettings{
 
   override def onStart(app:Application) : Unit={
 
-    if(UserDAO.isEmpty){
-      UserDAO.add(User(
-      recid = None,
-      first_name = "Petru",
-      last_name = "Miftode",
-      email = "petru.miftode@gmail.com"
-      ))
-    }
     if(AddressDAO.isEmpty){
       AddressDAO.addAddress(Address(
         addressId = None,
@@ -28,6 +20,17 @@ object Global  extends GlobalSettings{
         country = "Country"
       ))
     }
+
+    if(UserDAO.isEmpty){
+      UserDAO.add(User(
+      recid = None,
+      first_name = "Petru",
+      last_name = "Miftode",
+      email = "petru.miftode@gmail.com",
+      addressId = Some(1)
+      ))
+    }
+
   }
 
 }
