@@ -28,7 +28,7 @@ class DAOTest extends Specification{
       val storedAddress = Await.result(AddressDAO.allAddresses(),1 seconds)
       storedAddress.contains(testAddress) must beTrue
 
-      //add address
+      //add user
       Await.result(UserDAO.add(testUser),1 seconds)
       val storedUser = Await.result(UserDAO.all(),1 seconds)
       storedUser.contains(testUser) must beTrue
