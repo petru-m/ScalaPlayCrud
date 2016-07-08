@@ -30,7 +30,7 @@ object AddressDAO extends HasDatabaseConfig[JdbcProfile]{
 
   def allAddresses(): Future[List[Address]] = db.run(Addresses.result).map(_.toList)
 
-  def addAddress(address: Address):Future[Address] = db.run(Addresses+=address).map(_=>address)
+  def addAddress(address: Address):Future[Long] = db.run(Addresses returning Addresses.map(_.addressId) +=address).map(_.toLong)
 
   def deleteAddress(addressId:Long):Future[Int] = db.run(Addresses.filter(_.addressId===addressId).delete)
 
